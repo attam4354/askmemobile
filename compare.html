@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selective Product Comparison</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body{
+     background-color: black;
+     color: #dee2e6;
+
+
+        }   
+        .comparison-header {
+            background-color: #000000;
+            font-weight: bold;
+        }
+        .comparison-row {
+            border-bottom: 1px solid #dee2e6;
+        }
+        .product-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .product-image {
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <h1 class="text-center mb-4">Selective Product Comparison</h1>
+
+        <!-- Selection Dropdown -->
+        <div class="d-flex justify-content-center mb-4">
+            <select id="productSelect1" class="form-select mx-2 w-25" onchange="updateComparison()">
+                <option value="none">Select Product</option>
+                <option value="A">Iphone 16</option>
+                <option value="B">Iphone 15</option>
+                <option value="C">Iphone 14</option>
+                <option value="D">Iphone 13</option>
+                <option value="E">Iphone 12</option>
+                <option value="F">Iphone 11 </option>
+                
+            </select>
+
+            <select id="productSelect2" class="form-select mx-2 w-25" onchange="updateComparison()">
+                <option value="none">Select Product</option>
+                <option value="A">Iphone 16</option>
+                <option value="B">Iphone 15</option>
+                <option value="C">Iphone 14</option>
+                <option value="D">Iphone 13</option>
+                <option value="E">Iphone 12</option>
+                <option value="F">Iphone 11</option>
+                
+            
+            </select>
+        </div>
+
+        <div class="row text-center comparison-header py-3">
+            <div class="col-md-4"><strong>Features</strong></div>
+            <div class="col-md-4" id="product1Header"></div>
+            <div class="col-md-4" id="product2Header"></div>
+        </div>
+
+        <div class="row text-center comparison-row py-3">
+            <div class="col-md-4"><strong>Price</strong></div>
+            <div class="col-md-4" id="product1Price"></div>
+            <div class="col-md-4" id="product2Price"></div>
+        </div>
+
+        <div class="row text-center comparison-row py-3">
+            <div class="col-md-4"><strong>Battery Life</strong></div>
+            <div class="col-md-4" id="product1Battery"></div>
+            <div class="col-md-4" id="product2Battery"></div>
+        </div>
+
+        <div class="row text-center comparison-row py-3">
+            <div class="col-md-4"><strong>Weight</strong></div>
+            <div class="col-md-4" id="product1Weight"></div>
+            <div class="col-md-4" id="product2Weight"></div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript for Selective Comparison -->
+    <script>
+        const products = {
+            A: { name: 'Iphone 16', image: 'iphone16.jpg', price: '$199', battery: '10 hours', weight: '1.2 kg' },
+            B: { name: 'Iphone 15', image: 'iphone15.jpg', price: '$249', battery: '8 hours', weight: '1.3 kg' },
+            C: { name: 'Iphone 14', image: 'iphone14.jpg', price: '$150', battery: '12 hours', weight: '1.1 kg' },
+            D: { name: 'Iphone 13', image: 'iphone13jpg.jpg', price: '$220', battery: '9 hours', weight: '1.4 kg' },
+            E: { name: 'Iphone 12', image: 'iphone12jpg.jpg', price: '$180', battery: '11 hours', weight: '1.3 kg' },
+            F: { name: 'Iphone 11', image: '1phone11.jpg', price: '$210', battery: '10 hours', weight: '1.2 kg' },
+           
+        };
+
+        function updateComparison() {
+            const product1 = document.getElementById('productSelect1').value;
+            const product2 = document.getElementById('productSelect2').value;
+
+            updateProductDisplay('product1', product1);
+            updateProductDisplay('product2', product2);
+        }
+
+        function updateProductDisplay(prefix, productKey) {
+            if (productKey !== 'none' && products[productKey]) {
+                const product = products[productKey];
+                document.getElementById(`${prefix}Header`).innerHTML = `<img src="${product.image}" class="product-image mb-2"><div class="product-title">${product.name}</div>`;
+                document.getElementById(`${prefix}Price`).textContent = product.price;
+                document.getElementById(`${prefix}Battery`).textContent = product.battery;
+                document.getElementById(`${prefix}Weight`).textContent = product.weight;
+            } else {
+                document.getElementById(`${prefix}Header`).innerHTML = '';
+                document.getElementById(`${prefix}Price`).textContent = '';
+                document.getElementById(`${prefix}Battery`).textContent = '';
+                document.getElementById(`${prefix}Weight`).textContent = '';
+            }
+        }
+    </script>
+</body>
+</html>
